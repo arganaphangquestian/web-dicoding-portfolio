@@ -1,0 +1,298 @@
+:root {
+    --desktop-padding: 56px;
+    --mobile-padding: 32px;
+    --mobile-screen: 450px;
+    --color-primary: #19292d;
+    --color-accent: #b9b9b9;
+}
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+button {
+    background: none;
+    border: none;
+}
+
+/* Card */
+.card {
+    flex: 1;
+    min-width: var(--mobile-screen);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card:nth-child(even) {
+    flex-direction: column-reverse;
+}
+
+.card img {
+    width: 100%;
+    flex: 2;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1);
+    transition: all .25s ease-in-out;
+    overflow: hidden;
+}
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+.card > .description {
+    flex: 1;
+    padding: var(--desktop-padding);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.card > .description h1 {
+    color: #555555;
+    margin: 0 0 24px;
+}
+
+.card > .description p {
+    color: #b5b5b5;
+    margin: 0 0 24px;
+}
+
+.card > .description button {
+    color: #757575;
+    padding: 0 0 6px 0;
+    border-bottom: 2px solid #d5d5d5;
+    cursor: pointer;
+}
+
+/* Navbar */
+nav {
+    padding: var(--desktop-padding);
+    position: absolute;
+    z-index: 999;
+}
+
+nav a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-size: 120%;
+    margin-right: 16px;
+    text-transform: uppercase;
+}
+
+nav a:last-child {
+    margin-right: 0;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: var(--mobile-padding);
+    cursor: pointer;
+    z-index: 999;
+}
+
+.hamburger span {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(213, 213, 213, 1);
+    position: relative;
+    transition: all .25s ease-in-out;
+}
+
+.hamburger span::before,
+.hamburger span::after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: #d5d5d5;
+    position: absolute;
+    left: 0;
+    transform: rotate(0deg);
+    transition: all .25s ease-in-out;
+}
+
+.hamburger span::before {
+    top: -10px;
+}
+
+.hamburger span::after {
+    top: 10px;
+}
+
+.hamburger.active span {
+    background-color: rgba(213, 213, 213, 0);
+}
+
+.hamburger.active span::before {
+    top: 0px;
+    transform: rotate(45deg);
+}
+
+.hamburger.active span::after {
+    top: 0px;
+    transform: rotate(-45deg);
+}
+
+/* Main */
+main {
+    display: flex;
+    overflow-x: hidden;
+}
+main aside,
+main #content {
+    height: 100vh;
+}
+main aside {
+    flex: 1;
+    min-width: var(--mobile-screen);
+    background-color: var(--color-primary);
+    padding: 0 var(--desktop-padding);
+    color: var(--color-accent);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+main aside h1 {
+    font-size: 220%;
+    letter-spacing: 2px;
+    margin: 0 0 32px;
+}
+main aside p {
+    line-height: 1.5;
+    letter-spacing: 1.2px;
+    margin: 0;
+}
+main aside img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 36px;
+    margin: var(--desktop-padding);
+}
+main #content {
+    flex: 2;
+    display: flex;
+}
+
+/* Footer */
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: var(--desktop-padding);
+}
+footer a img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    margin: 6px;
+}
+
+/* 
+ * For Content 450 + (2*450)
+ */
+@media only screen and (max-width: 1350px) {
+    main #content,
+    .card:nth-child(even) {
+        flex-direction: column;
+    }
+    main #content {
+        flex: 1;
+    }
+    .card {
+        position: relative;
+    }
+    .card .description {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(20, 20, 20, 0), rgba(20, 20, 20, .8));
+    }
+    .card > .description h1 {
+        color: #e0e0e0;
+    }
+
+    .card > .description p {
+        color: #d9d9d9;
+    }
+
+    .card > .description button {
+        color: #e0e0e0;
+    }
+}
+
+/*
+ * Sadly sad variable cannot be used in Media Query
+ * Ref : https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries
+ */
+@media only screen and (max-width: 900px) {
+    .card {
+        margin: var(--mobile-padding);
+    }
+    .card > .description {
+        padding: var(--mobile-padding);
+    }
+
+    nav {
+        position: fixed;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        opacity: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--color-primary);
+        transition: all .25s ease;
+    }
+    nav.active {
+        left: 0;
+        opacity: 1;
+    }
+    nav a {
+        margin: 24px 0;
+    }
+    .hamburger {
+        display: flex;
+    }
+
+    main {
+        flex-direction: column;
+    }
+    
+    main aside {
+        padding: 0 var(--mobile-padding);
+    }
+
+    main aside img {
+        margin: var(--mobile-padding);
+    }
+
+    main aside,
+    main #content {
+        flex: unset;
+    }
+    footer {
+        padding: var(--mobile-padding);
+    }
+}
